@@ -1,12 +1,10 @@
-// import Register from "./components/Register.jsx"
-import Home from "./components/Home.jsx"
+import Routerss from "./components/Routerss.jsx"
 function App() {
 
 
   return (
     <>
-       <Home></Home>
-        {/* <Register></Register> */}
+       <Routerss></Routerss>
     </>
   )
 }
