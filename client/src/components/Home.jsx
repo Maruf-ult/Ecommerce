@@ -38,38 +38,38 @@ function Home() {
 
   return (
     <>
-      <div className="h-screen w-screen bg-emerald-200 relative flex">
+      <div className="h-screen w-screen bg-cyan-900 relative flex">
         <div className="flex-col justify-start space-y-5 mt-20 ml-24">
           <h1 className="font-extrabold text-8xl">
-            HI <span className="text-sky-500">THERE</span>
+           <span className="text-slate-300">HI</span>  <span className="text-sky-500">THERE</span>
           </h1>
-          <h1 className="font-extrabold text-8xl">WELCOME TO</h1>
+          <h1 className="font-extrabold text-8xl text-slate-300">WELCOME TO</h1>
           <h1 className="font-extrabold text-8xl text-sky-500">Ecommerce</h1>
         </div>
 
         <div className="flex  items-center justify-center ml-40 mb-16 ">
-          <div className="flex flex-col bg-slate-200 h-96 w-96 justify-center items-center text-center space-y-6 rounded-lg">
+          <div className="flex flex-col bg-slate-300 h-96 w-96 justify-center items-center text-center space-y-6 rounded-lg">
             <h1 className="font-bold  text-3xl ">Sign up</h1>
             <input
               type="text"
               placeholder="name"
               onChange={(e)=>setName(e.target.value)}
               required
-              className="p-3 w-64 rounded-sm"
+              className="p-3 w-64 rounded-md"
             />
             <input
               type="email"
               placeholder="email"
               onChange={(e)=>setEmail(e.target.value)}
               required
-              className=" p-3 w-64 rounded-sm"
+              className=" p-3 w-64 rounded-md"
             />
             <input
               type="password"
               placeholder="password"
               onChange={(e)=>setPass(e.target.value)}
               required
-              className="p-3 w-64 rounded-sm"
+              className="p-3 w-64 rounded-md"
             />
 
             <div className="flex space-x-9">
