@@ -1,11 +1,12 @@
-import Home from "./component/Home.jsx"
+import AddItem from "./component/AddItem.jsx"
+
 
 function App() {
   
 
   return (
     <>
-       <Home></Home>
+     <AddItem></AddItem>
     </>
   )
 }
