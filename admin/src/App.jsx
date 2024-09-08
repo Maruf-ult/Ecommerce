@@ -1,12 +1,11 @@
-import AddItem from "./component/AddItem.jsx"
-
+import Routerss from "./component/Routerss.jsx"
 
 function App() {
   
 
   return (
     <>
-     <AddItem></AddItem>
+         <Routerss></Routerss>
     </>
   )
 }

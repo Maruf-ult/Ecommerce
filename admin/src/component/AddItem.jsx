@@ -24,7 +24,7 @@ function AddItem() {
     formData.append('title', item.title);
     formData.append('price', item.price);
     formData.append('offer_price', item.offer_price);
-    formData.append('catagory', item.category);
+    formData.append('category', item.category);
     formData.append('image', item.image);
 
     try {
@@ -44,6 +44,11 @@ function AddItem() {
     }
   };
 
+  const handleClick =()=>{
+      window.location.href='/get-item'
+  }
+
+
   return (
     <>
       <div className="flex space-x-4">
@@ -51,7 +56,7 @@ function AddItem() {
           <h1 className="text-blue-500 font-extrabold bg-white p-3 mt-3 rounded-md cursor-pointer">
             Add Item
           </h1>
-          <h1 className="text-blue-500 font-extrabold bg-white p-3 rounded-md cursor-pointer">
+          <h1 onClick={handleClick} className="text-blue-500 font-extrabold bg-white p-3 rounded-md cursor-pointer">
             All Item
           </h1>
         </div>

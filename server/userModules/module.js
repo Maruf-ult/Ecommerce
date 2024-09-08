@@ -12,7 +12,7 @@ export const createItem = async(req,res)=>{
 
           const newItem = new addItem({title,price,offer_price,category,image})
           await newItem.save();
-          return res.status(201).json({success:true,msg:"item added successfully"})
+          return res.status(201).json({success:true,msg:"item added successfully",newItem})
 
      } catch (error) {
           console.log(error)
