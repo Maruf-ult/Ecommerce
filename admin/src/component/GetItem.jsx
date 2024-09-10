@@ -42,20 +42,25 @@ function GetItem() {
           <div className="block justify-center ml-24 mt-10 space-y-4">
             
               {data?.map((item, index) => (
-              <ul key={index}>
-                <li className="bg-white p-3 rounded-md mb-2">
+              <ul key={index} className="bg-white space-y-2">
+                <li >
+                   <span className="font-bold">title: </span>
                   {item.title}
                 </li>
-                <li className="bg-white p-3 rounded-md mb-2">
+                <li >
+                <span className="font-bold">price: </span>
                   {item.price}
                 </li>
-                <li className="bg-white p-3 rounded-md mb-2">
+                <li >
+                <span className="font-bold">offer_price: </span>
                   {item.offer_price}
                 </li>
-                <li className="bg-white p-3 rounded-md mb-2">
+                <li>
+                <span className="font-bold">category: </span>
                   {item.category}
                 </li>
-                <li className="bg-white p-3 rounded-md mb-2">
+                <li>
+                <span className="font-bold">photo: </span>
                   {item.photo}
                 </li>
                 
