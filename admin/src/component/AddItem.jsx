@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { Toaster, toast } from "react-hot-toast";
 
 function AddItem() {
   const [item, setItem] = useState({
@@ -39,30 +40,38 @@ function AddItem() {
       );
       const response = addUser.data;
       console.log(response);
+      toast.success('Item created successfully');
+      // Clear the input fields
+      setItem({
+        title: "",
+        price: "",
+        offer_price: "",
+        category: "",
+        image: null,
+      });
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleClick =()=>{
-      window.location.href='/get-item'
-  }
-
+  const handleClick = () => {
+    window.location.href = '/get-item';
+  };
 
   return (
     <>
       <div className="flex space-x-4">
         <div className="bg-red-200 w-64 h-screen flex flex-col justify-start text-start space-y-8 rounded-md p-3">
-          <h1 className="text-blue-500 font-extrabold bg-white p-3 mt-3 rounded-md cursor-pointer">
+          <h1 className="text-blue-500 font-extrabold bg-white p-3 mt-3 rounded-md cursor-pointer w-56">
             Add Item
           </h1>
-          <h1 onClick={handleClick} className="text-blue-500 font-extrabold bg-white p-3 rounded-md cursor-pointer">
+          <h1 onClick={handleClick} className="text-blue-500 font-extrabold bg-white p-3 rounded-md cursor-pointer w-56">
             All Item
           </h1>
         </div>
         <div className="bg-cyan-600 h-screen w-screen rounded-md">
           <div className="block justify-center ml-24 mt-10 space-y-4">
-            <h1>Title:</h1>
+            <h1 className="font-bold">Title:</h1>
             <input
               onChange={handleChange}
               className="p-2 rounded-sm w-72"
@@ -71,7 +80,7 @@ function AddItem() {
               value={item.title}
             />
 
-            <h1>Price:</h1>
+            <h1 className="font-bold">Price:</h1>
             <input
               onChange={handleChange}
               className="p-2 rounded-sm w-72"
@@ -80,7 +89,7 @@ function AddItem() {
               value={item.price}
             />
 
-            <h1>Offer price:</h1>
+            <h1 className="font-bold">Offer price:</h1>
             <input
               onChange={handleChange}
               className="p-2 rounded-sm w-72"
@@ -89,7 +98,7 @@ function AddItem() {
               value={item.offer_price}
             />
 
-            <h1>Category:</h1>
+            <h1 className="font-bold">Category:</h1>
             <input
               onChange={handleChange}
               className="p-2 rounded-sm w-72"
@@ -98,7 +107,7 @@ function AddItem() {
               value={item.category}
             />
 
-            <h1>Image:</h1>
+            <h1 className="font-bold">Image:</h1>
             <input
               onChange={handleFileChange}
               className="rounded-sm cursor-pointer"
@@ -115,6 +124,7 @@ function AddItem() {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 }
