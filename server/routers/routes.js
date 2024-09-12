@@ -1,5 +1,5 @@
 import express from 'express'
-import { createItem,getItem } from "../userModules/module.js";
+import { createItem,getItem,updateItem,delteItem } from "../userModules/module.js";
 import upload from '../handleImage/moduleImg.js';
 
 
@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/api/add-item',upload.single('image'),createItem)
 router.get('/api/get-item',getItem)
-
+router.patch('/api/update-item/:id',updateItem)
+router.delete('/api/delete-item/:id',delteItem)
 
 export default router;

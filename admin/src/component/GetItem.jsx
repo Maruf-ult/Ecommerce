@@ -68,8 +68,13 @@ function GetItem() {
                     />
                   </li>
                 </ul>
+                <div className="flex justify-start space-x-4 mt-2">
+                  <button className="bg-blue-500 text-white p-2 w-24 rounded-md ">update</button>
+                  <button className="bg-red-500 text-white p-2 w-24 rounded-md">delete</button>
+             </div>
               </div>
             ))}
+           
           </div>
         </div>
       </div>
