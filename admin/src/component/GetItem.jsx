@@ -1,12 +1,23 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function GetItem() {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
 
   const handleClick = () => {
-    window.location.href = "/";
+    navigate('/')
   };
+
+  const UpdateItem = (id) =>{
+    navigate('/update-item',{state:{id:id}});
+    alert(id);
+  }
+
+  const DeleteItem =(id)=>{
+       navigate('/delete-item',{state:{id:id}})
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,8 +80,8 @@ function GetItem() {
                   </li>
                 </ul>
                 <div className="flex justify-start space-x-4 mt-2">
-                  <button className="bg-blue-500 text-white p-2 w-24 rounded-md ">update</button>
-                  <button className="bg-red-500 text-white p-2 w-24 rounded-md">delete</button>
+                  <button onClick={()=>UpdateItem(item._id)} className="bg-blue-500 text-white p-2 w-24 rounded-md ">update</button>
+                  <button onClick={()=>DeleteItem(item._id)} className="bg-red-500 text-white p-2 w-24 rounded-md">delete</button>
              </div>
               </div>
             ))}
