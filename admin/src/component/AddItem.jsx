@@ -1,8 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 import { Toaster, toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function AddItem() {
+  const navigate = useNavigate();
   const [item, setItem] = useState({
     title: "",
     price: "",
@@ -55,7 +57,7 @@ function AddItem() {
   };
 
   const handleClick = () => {
-    window.location.href = '/get-item';
+    navigate('/get-item')
   };
 
   return (
@@ -99,13 +101,18 @@ function AddItem() {
             />
 
             <h1 className="font-bold">Category:</h1>
-            <input
+            <select
               onChange={handleChange}
               className="p-2 rounded-sm w-72"
-              type="text"
               name="category"
               value={item.category}
-            />
+            >
+              <option value="electronics">Electronics</option>
+              <option value="fashion">Fashion</option>
+              <option value="home">Home</option>
+              <option value="books">Books</option>
+              <option value="toys">Toys</option>
+            </select>
 
             <h1 className="font-bold">Image:</h1>
             <input

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 function GetItem() {
@@ -12,11 +13,19 @@ function GetItem() {
 
   const UpdateItem = (id) =>{
     navigate('/update-item',{state:{id:id}});
-    alert(id);
   }
 
-  const DeleteItem =(id)=>{
-       navigate('/delete-item',{state:{id:id}})
+  const DeleteItem = async (id)=>{
+    if (window.confirm("Are you sure, you want to delete this item?")) {
+      try {
+        await axios.delete(`http://localhost:3000/api/delete-item/${id}`);
+         setData(data.filter(item => item._id !== id));
+        toast.success("Item deleted successfully");
+      } catch (error) {
+        console.log(error);
+        toast.error("Failed to delete item");
+      }
+    }
   }
 
   useEffect(() => {
@@ -72,11 +81,12 @@ function GetItem() {
                   </li>
                   <li>
                     <span className="font-bold">Photo: </span>
-                    <img
-                      src={`http://localhost:3000/` + item.image.split('\\').pop()}
-                      alt={item.image}
-                      className="w-full h-48 object-cover rounded-md"
-                    />
+                   <img
+  src={`http://localhost:3000/` + item.image?.split('\\').pop()}
+  alt={item.image}
+  className="w-full h-48 object-cover rounded-md"
+/>
+
                   </li>
                 </ul>
                 <div className="flex justify-start space-x-4 mt-2">

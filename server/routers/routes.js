@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post('/api/add-item',upload.single('image'),createItem)
 router.get('/api/get-item',getItem)
-router.patch('/api/update-item/:id',updateItem)
+router.patch('/api/update-item/:id', upload.single('image'), updateItem);
 router.delete('/api/delete-item/:id',delteItem)
 
 export default router;

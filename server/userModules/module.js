@@ -41,20 +41,35 @@ export const getItem = async (req, res) => {
 
 export const updateItem = async (req, res) => {
   try {
+    console.log('Request received:', req.params, req.body);
     const itemId = req.params.id;
-    const data = await addItem.findByIdAndUpdate(itemId, req.body, {
-      new: true,
-    });
-    if (!updateItem) return res.status(401).json({ msg: "user not found" });
+    const { title, price, offer_price, category } = req.body;
+    console.log(req.body)
+    const image = req.file ? req.file.path : null;
+
+    const updateData = { title, price, offer_price, category };
+    if (image) {
+      updateData.image = image;
+    }
+
+    const data = await addItem.findByIdAndUpdate(
+      itemId,
+      { $set: updateData },
+      { new: true }
+    );
+
+    if (!data) return res.status(401).json({ msg: "Item not found" });
     return res
       .status(201)
-      .json({ success: true, msg: "item updated successfully" });
+      .json({ success: true, msg: "Item updated successfully", data });
   } catch (error) {
+    console.error('Error updating item:', error);
     return res
       .status(400)
-      .json({ success: false, msg: `an eternal error occured ${error}` });
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
+
 
 export const delteItem = async (req, res) => {
   try {
