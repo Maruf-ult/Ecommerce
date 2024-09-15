@@ -24,6 +24,7 @@ function Login() {
     try {
        await signInWithEmailAndPassword(auth,email,pass)
        toast.success('logged in successfully')    
+       navigate('/Home')
     } catch (error) {
       toast.error(error.message, { duration: 2000 }); 
     }

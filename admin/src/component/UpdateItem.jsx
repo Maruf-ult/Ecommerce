@@ -124,11 +124,10 @@ function UpdateItem() {
                 
               >
               <option value="">select category</option>
-              <option value="electronics">Electronics</option>
-              <option value="fashion">Fashion</option>
-              <option value="home">Home</option>
+              <option value="electronics">Fashion</option>
+              <option value="fashion">Laptop</option>
+              <option value="home">Mobile</option>
               <option value="books">Books</option>
-              <option value="toys">Toys</option>
               </select>
               <input
                 onChange={handleFileChange}

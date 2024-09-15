@@ -16,7 +16,7 @@ function SignGoogle() {
       console.log(result);
       if(result.user){
            toast.success('Logged in successfully')
-           navigate('/')
+           navigate('/Home')
       }
       else{
         toast.error('An error occured',{duration:2000})
