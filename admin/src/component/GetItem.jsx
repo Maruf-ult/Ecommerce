@@ -80,7 +80,7 @@ function GetItem() {
                     {item.category}
                   </li>
                   <li>
-                    <span className="font-bold">Photo: </span>
+                   
                    <img
   src={`http://localhost:3000/` + item.image?.split('\\').pop()}
   alt={item.image}

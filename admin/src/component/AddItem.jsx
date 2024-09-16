@@ -107,10 +107,11 @@ function AddItem() {
               name="category"
               value={item.category}
             >
-              <option value="electronics">Fashion</option>
-              <option value="fashion">Laptop</option>
-              <option value="home">Mobile</option>
-              <option value="books">Books</option>
+              <option value="">select category</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Laptop">Laptop</option>
+              <option value="Mobile">Mobile</option>
+              <option value="Books">Books</option>
               
             </select>
 
