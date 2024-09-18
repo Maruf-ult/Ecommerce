@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 function Fashion() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
+  const [showOptions, setShowOptions] = useState(false);
   const [selectedRange, setSelectedRange] = useState('');
 
   useEffect(() => {
@@ -41,6 +42,10 @@ function Fashion() {
     setSelectedRange(event.target.value);
   };
 
+  const toggleOptions = () => {
+    setShowOptions(!showOptions);
+  };
+
   const filteredItems = data.filter(item => {
     if (selectedRange === '100-200') {
       return item.price >= 100 && item.price < 200;
@@ -60,45 +65,50 @@ function Fashion() {
             Dashboard
           </h1>
 
-          <h1 className="text-blue-500 font-extrabold bg-white p-3 mt-4 rounded-md cursor-pointer">
+          <h1 onClick={toggleOptions} className="text-blue-500 font-extrabold bg-white p-3 mt-4 rounded-md cursor-pointer">
             Amount
           </h1>
-          <div className="flex justify-center">
-            <input
-              type="radio"
-              value="100-200"
-              checked={selectedRange === '100-200'}
-              onChange={handleRangeChange}
-              className="cursor-pointer"
-            />
-            <h1 className="text-blue-500 font-extrabold p-3 rounded-md">
-              100-200$
-            </h1>
-          </div>
-          <div className="flex justify-center">
-            <input
-              type="radio"
-              value="200-300"
-              checked={selectedRange === '200-300'}
-              onChange={handleRangeChange}
-              className="cursor-pointer"
-            />
-            <h1 className="text-blue-500 font-extrabold p-3 rounded-md">
-              200-300$
-            </h1>
-          </div>
-          <div className="flex justify-center">
-            <input
-              type="radio"
-              value="400-500"
-              checked={selectedRange === '400-500'}
-              onChange={handleRangeChange}
-              className="cursor-pointer"
-            />
-            <h1 className="text-blue-500 font-extrabold p-3 rounded-md">
-              400-500$
-            </h1>
-          </div>
+          
+          {showOptions && (
+          <>
+            <div className="flex justify-center">
+              <input
+                type="radio"
+                value="100-200"
+                checked={selectedRange === '100-200'}
+                onChange={handleRangeChange}
+                className="cursor-pointer"
+              />
+              <h1 className="text-blue-500 font-extrabold p-3 rounded-md">
+                100-200$
+              </h1>
+            </div>
+            <div className="flex justify-center">
+              <input
+                type="radio"
+                value="200-300"
+                checked={selectedRange === '200-300'}
+                onChange={handleRangeChange}
+                className="cursor-pointer"
+              />
+              <h1 className="text-blue-500 font-extrabold p-3 rounded-md">
+                200-300$
+              </h1>
+            </div>
+            <div className="flex justify-center">
+              <input
+                type="radio"
+                value="400-500"
+                checked={selectedRange === '400-500'}
+                onChange={handleRangeChange}
+                className="cursor-pointer"
+              />
+              <h1 className="text-blue-500 font-extrabold p-3 rounded-md">
+                400-500$
+              </h1>
+            </div>
+          </>
+        )}
         </div>
         <div className="flex-1 bg-cyan-600 p-6 overflow-auto h-screen ">
           <div className="flex justify-center bg-white p-3 mb-3 list-none space-x-9 font-bold">
