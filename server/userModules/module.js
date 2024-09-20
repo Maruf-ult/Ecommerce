@@ -2,15 +2,15 @@ import addItem from "../userModels/Admin.js";
 
 export const createItem = async (req, res) => {
   try {
-    const { title, price, offer_price, category } = req.body;
+    const { title, price, offer_price, category,brand } = req.body;
     const image = req.file ? req.file.path : null;
-    if (!title || !price || !offer_price || !category) {
+    if (!title || !price || !offer_price || !category || !brand) {
       return res
         .status(401)
         .json({ success: false, msg: "all fields should be filed" });
     }
 
-    const newItem = new addItem({ title, price, offer_price, category, image });
+    const newItem = new addItem({ title, price, offer_price, category,brand ,image });
     await newItem.save();
     return res
       .status(201)
@@ -47,7 +47,7 @@ export const updateItem = async (req, res) => {
     console.log(req.body)
     const image = req.file ? req.file.path : null;
 
-    const updateData = { title, price, offer_price, category };
+    const updateData = { title, price, offer_price, category,brand };
     if (image) {
       updateData.image = image;
     }

@@ -7,6 +7,8 @@ function Books() {
   const navigate = useNavigate();
   const [selectedRange, setSelectedRange] = useState('');
   const [showOptions, setShowOptions] = useState(false);
+  const [likes, setLikes] = useState({});
+  const [saves,setSaves] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,6 +46,21 @@ function Books() {
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
+  };
+
+
+  const toggleLike = (index) => {
+    setLikes((prevLikes) => ({
+      ...prevLikes,
+      [index]: !prevLikes[index],
+    }));
+  };
+
+  const toggleSave =(index) =>{
+    setSaves((prevSaves) =>({
+      ...prevSaves,
+      [index]:!prevSaves[index],
+    }));
   };
 
 
@@ -144,8 +161,8 @@ function Books() {
                   </li>
                 </ul>
                 <div className="flex justify-center text-center space-x-8 mt-3">
-                     <button className="bg-blue-500 text-white w-20 h-9 rounded-md">Like</button>
-                     <button className="bg-blue-500 text-white  w-20 h-9 rounded-md">Save</button>
+                <button onClick={()=>toggleLike(index)} className="bg-blue-500 text-white w-20 h-9 rounded-md">{likes[index]?'liked':'like'}</button>
+                <button onClick={()=>toggleSave(index)} className="bg-blue-500 text-white  w-20 h-9 rounded-md">{saves[index]?'saved':'save'}</button>
                      <button className="bg-green-500 text-white  w-28 h-9 rounded-md">Add to cart</button>
                 </div>
               </div>

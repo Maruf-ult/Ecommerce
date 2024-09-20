@@ -19,6 +19,10 @@ const additem = new mongoose.Schema({
            type:String,
            required: [true, 'Category is required'],
       },
+      brand:{
+        type:String,
+        required:[true,'brand is required']
+      },
       image:{
           type:String,
           required: [true, 'Image is required'],
