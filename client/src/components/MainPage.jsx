@@ -8,6 +8,7 @@ function MainPage() {
   const [showOptions, setShowOptions] = useState(false);
   const [likes, setLikes] = useState({});
   const [saves,setSaves] = useState({});
+  const [life,setLife]=useState({});
 
   const navigate = useNavigate();
 
