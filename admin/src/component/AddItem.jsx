@@ -10,6 +10,7 @@ function AddItem() {
     price: "",
     offer_price: "",
     category: "",
+    brand:"",
     image: null,
   });
 
@@ -28,6 +29,7 @@ function AddItem() {
     formData.append('price', item.price);
     formData.append('offer_price', item.offer_price);
     formData.append('category', item.category);
+    formData.append('brand',item.brand);
     formData.append('image', item.image);
 
     try {
@@ -49,6 +51,7 @@ function AddItem() {
         price: "",
         offer_price: "",
         category: "",
+        brand:"",
         image: null,
       });
     } catch (error) {
@@ -72,7 +75,7 @@ function AddItem() {
           </h1>
         </div>
         <div className="bg-cyan-600 h-screen w-screen rounded-md">
-          <div className="block justify-center ml-24 mt-10 space-y-4">
+          <div className="block justify-center ml-24 mt-2 space-y-3">
             <h1 className="font-bold">Title:</h1>
             <input
               onChange={handleChange}
@@ -99,6 +102,16 @@ function AddItem() {
               name="offer_price"
               value={item.offer_price}
             />
+
+<h1 className="font-bold">Brand:</h1>
+            <input
+              onChange={handleChange}
+              className="p-2 rounded-sm w-72"
+              type="text"
+              name="brand"
+              value={item.brand}
+            />
+
 
             <h1 className="font-bold">Category:</h1>
             <select

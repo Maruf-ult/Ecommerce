@@ -1,4 +1,4 @@
-import addItem from "../userModels/Admin.js";
+import addItem from "../userModels/admin.js";
 
 export const createItem = async (req, res) => {
   try {
@@ -43,11 +43,11 @@ export const updateItem = async (req, res) => {
   try {
     console.log('Request received:', req.params, req.body);
     const itemId = req.params.id;
-    const { title, price, offer_price, category } = req.body;
+    const { title, price, offer_price,brand, category } = req.body;
     console.log(req.body)
     const image = req.file ? req.file.path : null;
 
-    const updateData = { title, price, offer_price, category,brand };
+    const updateData = { title, price, offer_price,brand, category };
     if (image) {
       updateData.image = image;
     }

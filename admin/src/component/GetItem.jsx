@@ -76,6 +76,10 @@ function GetItem() {
                     {item.offer_price}
                   </li>
                   <li>
+                    <span className="font-bold">Brand: </span>
+                    {item.brand}
+                  </li>
+                  <li>
                     <span className="font-bold">Category: </span>
                     {item.category}
                   </li>

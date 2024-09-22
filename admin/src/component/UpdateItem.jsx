@@ -12,7 +12,8 @@ function UpdateItem() {
     title: "",
     price: "",
     offer_price: "",
-    category: "",
+    brand:"",
+    category: "",    
     image: null,
   });
 
@@ -38,6 +39,7 @@ function UpdateItem() {
     formData.append("price", item.price);
     formData.append("offer_price", item.offer_price);
     formData.append("category", item.category);
+    formData.append("brand",item.brand)
     if (item.image) {
       formData.append("image", item.image);
     }
@@ -60,6 +62,7 @@ function UpdateItem() {
           title: "",
           price: "",
           offer_price: "",
+          brand:"",
           category: "",
           image: null,
         });
@@ -114,6 +117,14 @@ function UpdateItem() {
                 name="offer_price"
                 value={item.offer_price}
                 placeholder="offer_price"
+              />
+               <input
+                onChange={handleChange}
+                className="p-2 rounded-sm w-72"
+                type="text"
+                name="brand"
+                value={item.brand}
+                placeholder="brand"
               />
          
               <select
