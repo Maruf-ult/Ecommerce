@@ -150,6 +150,10 @@ function Mobile() {
                     {item.category}
                   </li>
                   <li>
+                    <span className="font-bold">Brand: </span>
+                    {item.brand}
+                  </li>
+                  <li>
                   
                     <img
                       src={`http://localhost:3000/` + item.image?.split("\\").pop()}
