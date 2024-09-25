@@ -85,6 +85,12 @@ function Laptop() {
           <h1 onClick={toggleOptions} className="text-blue-500 font-extrabold bg-white p-3 mt-5 rounded-md cursor-pointer">
             Amount
           </h1>
+          <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+            saved items 
+          </h1>
+          <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+            liked items 
+          </h1>
           {showOptions && (
   <div className="bg-white mt-1 space-y-1 ">
     <div
