@@ -6,6 +6,7 @@ import Fashion from "./Fashion.jsx"
 import Mobile from "./Mobile.jsx"
 import Laptop from "./Laptop.jsx"
 import Books from "./Books.jsx"
+import SavedItems from "./SavedItems.jsx"
 
 function Routerss() {
   return (
@@ -19,6 +20,7 @@ function Routerss() {
                 <Route path="/Mobile" element={<Mobile></Mobile>}/>
                 <Route path="/Laptop" element={<Laptop></Laptop>}/>
                 <Route path="/Books" element={<Books></Books>}/>
+                <Route path="/saved-items" element={<SavedItems></SavedItems>}/>
            </Routes>
 
       </Router>
