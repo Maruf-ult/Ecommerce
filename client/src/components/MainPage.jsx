@@ -1,14 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
-function MainPage() {
+
+const MainPage = () => {
   const [data, setData] = useState([]);
-  const [selectedRange, setSelectedRange] = useState('');
+  const [selectedRange, setSelectedRange] = useState("");
   const [showOptions, setShowOptions] = useState(false);
   const [likes, setLikes] = useState({});
-  const [saves,setSaves] = useState({});
-  
+  const [saves, setSaves] = useState({});
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,40 +29,47 @@ function MainPage() {
   }, []);
 
   const handleNav1 = () => {
-    navigate('/Fashion');
+    navigate("/Fashion");
   };
 
   const handleRangeChange = (event) => {
     setSelectedRange(event.target.value);
   };
-   
+
+ const Nav1 = ()=>{
+  navigate('/liked-items')
+ }
+
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
+  // const UpdateItem = (id) =>{
+  //   navigate('/update-item',{state:{id:id}});
+  // }
 
-  const toggleLike = (index) => {
+
+  const toggleLike = (id) => {
     setLikes((prevLikes) => ({
       ...prevLikes,
-      [index]: !prevLikes[index],
+      [id]: !prevLikes[id],
     }));
+    
   };
 
-  const toggleSave =(index) =>{
-    setSaves((prevSaves) =>({
+  const toggleSave = (id) => {
+    setSaves((prevSaves) => ({
       ...prevSaves,
-      [index]:!prevSaves[index],
+      [id]: !prevSaves[id],
     }));
+    alert(id);
   };
 
-
-
-
-  const filteredItems = data.filter(item => {
-    if (selectedRange === '10-200') {
+  const filteredItems = data.filter((item) => {
+    if (selectedRange === "10-200") {
       return item.price >= 10 && item.price < 200;
-    } else if (selectedRange === '200-300') {
+    } else if (selectedRange === "200-300") {
       return item.price >= 200 && item.price < 300;
-    } else if (selectedRange === '400-500') {
+    } else if (selectedRange === "400-500") {
       return item.price >= 400 && item.price < 500;
     }
     return true;
@@ -75,44 +83,52 @@ function MainPage() {
             Dashboard
           </h1>
 
-          <h1 onClick={toggleOptions} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
-            Amount 
+          <h1
+            onClick={toggleOptions}
+            className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer"
+          >
+            Amount
           </h1>
-          <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
-            saved items 
+          <h1 className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+            saved items
           </h1>
-          <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
-            liked items 
+          <h1 onClick={Nav1} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+            liked items
           </h1>
           {showOptions && (
-  <div className="bg-white mt-1 space-y-1 ">
-    <div
-      className="flex justify-center bg-gray-100 rounded-md hover:bg-gray-200 cursor-pointer "
-      onClick={() => handleRangeChange({ target: { value: '10-200' } })}
-    >
-      <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
-        10-200$
-      </h1>
-    </div>
-    <div
-      className="flex justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer"
-      onClick={() => handleRangeChange({ target: { value: '200-300' } })}
-    >
-      <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
-        200-300$
-      </h1>
-    </div>
-    <div
-      className="flex justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer"
-      onClick={() => handleRangeChange({ target: { value: '400-500' } })}
-    >
-      <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
-        400-500$
-      </h1>
-    </div>
-  </div>
-)}
-
+            <div className="bg-white mt-1 space-y-1 ">
+              <div
+                className="flex justify-center bg-gray-100 rounded-md hover:bg-gray-200 cursor-pointer "
+                onClick={() =>
+                  handleRangeChange({ target: { value: "10-200" } })
+                }
+              >
+                <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
+                  10-200$
+                </h1>
+              </div>
+              <div
+                className="flex justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                onClick={() =>
+                  handleRangeChange({ target: { value: "200-300" } })
+                }
+              >
+                <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
+                  200-300$
+                </h1>
+              </div>
+              <div
+                className="flex justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer"
+                onClick={() =>
+                  handleRangeChange({ target: { value: "400-500" } })
+                }
+              >
+                <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
+                  400-500$
+                </h1>
+              </div>
+            </div>
+          )}
         </div>
         <div className="flex-1 bg-cyan-600 p-6 overflow-auto h-screen">
           <div className="flex justify-center bg-white p-3 mb-3 list-none space-x-9 font-bold">
@@ -158,25 +174,38 @@ function MainPage() {
                     {item.brand}
                   </li>
                   <li>
-                  
                     <img
-                      src={`http://localhost:3000/` + item.image?.split("\\").pop()}
+                      src={
+                        `http://localhost:3000/` + item.image?.split("\\").pop()
+                      }
                       alt={item.image}
                       className="w-full h-48 object-cover rounded-md"
                     />
                   </li>
+                  <div className="flex justify-center text-center space-x-8 mt-3">
+                    <button
+                      onClick={() => toggleLike(item._id)}
+                      className="bg-blue-500 text-white w-20 h-9 rounded-md"
+                    >
+                      {likes[item._id] ? "liked" : "like"}
+                    </button>
+                    <button
+                      onClick={() => toggleSave(item._id)}
+                      className="bg-blue-500 text-white  w-20 h-9 rounded-md"
+                    >
+                      {saves[item._id] ? "saved" : "save"}
+                    </button>
+                    <button className="bg-green-500 text-white  w-28 h-9 rounded-md">
+                      Add to cart
+                    </button>
+                  </div>
                 </ul>
-                <div className="flex justify-center text-center space-x-8 mt-3">
-                     <button onClick={()=>toggleLike(index)} className="bg-blue-500 text-white w-20 h-9 rounded-md">{likes[index]?'liked':'like'}</button>
-                     <button onClick={()=>toggleSave(index)} className="bg-blue-500 text-white  w-20 h-9 rounded-md">{saves[index]?'saved':'save'}</button>
-                     <button className="bg-green-500 text-white  w-28 h-9 rounded-md">Add to cart</button>
-                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
-</>
+    </>
   );
 }
 

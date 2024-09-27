@@ -39,6 +39,25 @@ export const getItem = async (req, res) => {
   }
 };
 
+
+export const getLikedItem = async (req, res) => {
+  try {
+    const itemId = req.params.id;
+
+    const items = await addItem.findById(itemId);
+    if (!items) {
+      return res.status(401).json({ success: false, msg: "Liked items not found" });
+    }
+    return res
+      .status(201)
+      .json({ success: true, msg: "all items are here", items });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ success: false, msg: `an eternal error occured ${error}` });
+  }
+};
+
 export const updateItem = async (req, res) => {
   try {
     console.log('Request received:', req.params, req.body);

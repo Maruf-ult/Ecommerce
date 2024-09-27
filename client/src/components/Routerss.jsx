@@ -7,6 +7,7 @@ import Mobile from "./Mobile.jsx"
 import Laptop from "./Laptop.jsx"
 import Books from "./Books.jsx"
 import SavedItems from "./SavedItems.jsx"
+import LikedItems from "./LikedItems.jsx"
 
 function Routerss() {
   return (
@@ -14,12 +15,13 @@ function Routerss() {
            
            <Routes>
                 <Route path="/"element={<Home></Home>} />
-                <Route path="/Login"element={<Login></Login>} />
+                <Route path="/Login"element={<Login></Login>} /> 
                 <Route path="/Home"element={<MainPage></MainPage>} />
                 <Route path="/Fashion" element={<Fashion></Fashion>}/>
                 <Route path="/Mobile" element={<Mobile></Mobile>}/>
                 <Route path="/Laptop" element={<Laptop></Laptop>}/>
                 <Route path="/Books" element={<Books></Books>}/>
+                <Route path="/liked-items" element={<LikedItems></LikedItems>}/>
                 <Route path="/saved-items" element={<SavedItems></SavedItems>}/>
            </Routes>
 
