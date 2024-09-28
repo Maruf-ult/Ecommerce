@@ -1,28 +1,29 @@
 import axios from 'axios';
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const LikedItems = () => {
+  const [likedItems, setLikedItems] = useState([]);
+  const location = useLocation();
+  const { id } = location.state || {};
 
-   const [likedItems,setLikedItems] = useState({});
-   const location = useLocation();
-   const {id} = location.state|| {};
-
-  useEffect(()=>{
-    const fetchData = async()=>{
+  useEffect(() => {
+    const fetchData = async () => {
       try {
-        const itemss = axios.get(`http://localhost:3000/api/get-liked-items/${id}`)
-        const val = itemss.data.items;
-        console.log(val);
+        console.log('Location state id:', id);
+        const response = await axios.get(`http://localhost:3000/api/get-liked-items/${id}`);
+        console.log('API Response:', response);
+        const val = response.data.items;
+        console.log('Fetched items:', val);
         setLikedItems(val);
-
       } catch (error) {
-        alert(error)
+        alert(error);
       }
-    }
+    };
     fetchData();
-  })
+  }, []);
 
+  console.log('Liked items state:', likedItems);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -65,6 +66,7 @@ const LikedItems = () => {
       )}
     </div>
   );
+  
 };
 
 export default LikedItems;

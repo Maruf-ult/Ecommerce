@@ -43,9 +43,6 @@ const MainPage = () => {
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
-  // const UpdateItem = (id) =>{
-  //   navigate('/update-item',{state:{id:id}});
-  // }
 
 
   const toggleLike = (id) => {
@@ -53,7 +50,7 @@ const MainPage = () => {
       ...prevLikes,
       [id]: !prevLikes[id],
     }));
-    
+    navigate('/liked-items',{state:{id:id}});
   };
 
   const toggleSave = (id) => {
