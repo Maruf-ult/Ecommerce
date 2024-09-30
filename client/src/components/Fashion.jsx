@@ -9,6 +9,7 @@ function Fashion() {
   const [selectedRange, setSelectedRange] = useState('');
   const [likes, setLikes] = useState({});
   const [saves,setSaves] = useState({});
+  const [life,setLife] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
