@@ -1,5 +1,6 @@
 import addItem from "../userModels/admin.js";
 
+
 export const createItem = async (req, res) => {
   try {
     const { title, price, offer_price, category,brand } = req.body;
@@ -40,23 +41,26 @@ export const getItem = async (req, res) => {
 };
 
 
-export const getLikedItem = async (req, res) => {
+const getLikedItems = async (userId) => {
   try {
-    const itemId = req.params.id;
+    const likedItems = await LikedItem.findOne({ userId })
+      .populate('items') // Populate the items field with the actual additem documents
+      .exec();
 
-    const items = await addItem.findById(itemId);
-    if (!items) {
-      return res.status(401).json({ success: false, msg: "Liked items not found" });
+    if (!likedItems) {
+      return []; // Return an empty array if no liked items are found
     }
-    return res
-      .status(201)
-      .json({ success: true, msg: "all items are here", items });
+
+    return likedItems.items; // Return the populated items
   } catch (error) {
-    return res
-      .status(400)
-      .json({ success: false, msg: `an eternal error occured ${error}` });
+    console.error('Error fetching liked items:', error);
+    throw error; // Handle the error as needed
   }
 };
+
+
+
+
 
 export const updateItem = async (req, res) => {
   try {
