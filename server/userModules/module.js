@@ -1,26 +1,32 @@
 import addItem from "../userModels/admin.js";
 
-
 export const createItem = async (req, res) => {
   try {
-    const { title, price, offer_price, category,brand } = req.body;
+    const { title, price, offer_price, category, brand } = req.body;
     const image = req.file ? req.file.path : null;
     if (!title || !price || !offer_price || !category || !brand) {
       return res
         .status(401)
-        .json({ success: false, msg: "all fields should be filed" });
+        .json({ success: false, msg: "All fields should be filled" });
     }
 
-    const newItem = new addItem({ title, price, offer_price, category,brand ,image });
+    const newItem = new addItem({
+      title,
+      price,
+      offer_price,
+      category,
+      brand,
+      image,
+    });
     await newItem.save();
     return res
       .status(201)
-      .json({ success: true, msg: "item added successfully", newItem });
+      .json({ success: true, msg: "Item added successfully", newItem });
   } catch (error) {
     console.log(error);
     return res
       .status(400)
-      .json({ success: false, msg: `an eternal error occured ${error}` });
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
 
@@ -28,49 +34,66 @@ export const getItem = async (req, res) => {
   try {
     const items = await addItem.find();
     if (!items) {
-      return res.status(401).json({ success: false, msg: "items not found" });
+      return res.status(401).json({ success: false, msg: "Items not found" });
     }
     return res
       .status(201)
-      .json({ success: true, msg: "all items are here", items });
+      .json({ success: true, msg: "All items are here", items });
   } catch (error) {
     return res
       .status(400)
-      .json({ success: false, msg: `an eternal error occured ${error}` });
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
 
-
-const getLikedItems = async (userId) => {
+// Function to like an item
+export const PostlikeItem = async (req, res) => {
   try {
-    const likedItems = await LikedItem.findOne({ userId })
-      .populate('items') // Populate the items field with the actual additem documents
-      .exec();
+    const { id } = req.body;
 
-    if (!likedItems) {
-      return []; // Return an empty array if no liked items are found
+    if (!id) {
+      return res.status(400).json({ success: false, msg: "Item ID is required" });
     }
 
-    return likedItems.items; // Return the populated items
+    // Assuming the addItem model has a 'likes' field to keep count of likes
+    const item = await addItem.findById(id);
+    if (!item) {
+      return res.status(404).json({ success: false, msg: "Item not found" });
+    }
+
+    item.likes = item.likes ? item.likes + 1 : 1;
+    await item.save();
+
+    return res.status(200).json({ success: true, msg: "Item liked successfully", item });
   } catch (error) {
-    console.error('Error fetching liked items:', error);
-    throw error; // Handle the error as needed
+    console.log(error);
+    return res.status(400).json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
 
-
-
-
+// Controller function to get liked items
+export const getLikedItems = async (req, res) => {
+  try {
+    const likedItems = await addItem.find({ likes: { $gt: 0 } });
+    if (!likedItems || likedItems.length === 0) {
+      return res.status(404).json({ success: false, msg: "No liked items found" });
+    }
+    return res.status(200).json({ success: true, msg: "Liked items retrieved successfully", likedItems });
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ success: false, msg: `An internal error occurred: ${error}` });
+  }
+};
 
 export const updateItem = async (req, res) => {
   try {
-    console.log('Request received:', req.params, req.body);
+    console.log("Request received:", req.params, req.body);
     const itemId = req.params.id;
-    const { title, price, offer_price,brand, category } = req.body;
-    console.log(req.body)
+    const { title, price, offer_price, brand, category } = req.body;
+    console.log(req.body);
     const image = req.file ? req.file.path : null;
 
-    const updateData = { title, price, offer_price,brand, category };
+    const updateData = { title, price, offer_price, brand, category };
     if (image) {
       updateData.image = image;
     }
@@ -86,13 +109,12 @@ export const updateItem = async (req, res) => {
       .status(201)
       .json({ success: true, msg: "Item updated successfully", data });
   } catch (error) {
-    console.error('Error updating item:', error);
+    console.error("Error updating item:", error);
     return res
       .status(400)
       .json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
-
 
 export const delteItem = async (req, res) => {
   try {

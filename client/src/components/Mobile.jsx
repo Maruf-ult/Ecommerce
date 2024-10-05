@@ -40,6 +40,10 @@ function Mobile() {
     navigate('/Home')
   }
 
+  const nav1=()=>{
+    navigate('/liked-items')
+  }
+
   const handleRangeChange = (event) => {
     setSelectedRange(event.target.value);
   };
@@ -48,30 +52,41 @@ function Mobile() {
     setShowOptions(!showOptions);
   };
 
-  const toggleLike = (index) => {
+  const toggleLike = async (id) => {
     setLikes((prevLikes) => ({
       ...prevLikes,
-      [index]: !prevLikes[index],
+      [id]: !prevLikes[id],
     }));
+
+    try {
+      await axios.post("http://localhost:3000/api/create-like", { id });
+      console.log(`Item with id ${id} liked successfully`);
+    } catch (error) {
+      console.error('Error liking the item:', error);
+    }
+
   };
 
-  const toggleSave =(index) =>{
+  const toggleSave =(id) =>{
     setSaves((prevSaves) =>({
       ...prevSaves,
-      [index]:!prevSaves[index],
+      [id]:!prevSaves[id],
     }));
+    alert(id)
   };
 
-  const filteredItems = data.filter(item => {
-    if (selectedRange === '10-200') {
-      return item.price >= 10 && item.price < 200;
-    } else if (selectedRange === '200-300') {
-      return item.price >= 200 && item.price < 300;
-    } else if (selectedRange === '400-500') {
-      return item.price >= 400 && item.price < 500;
+  const filteredItems = data.filter((item) => {
+    if (!selectedRange) {
+       return true; 
     }
-    return true;
-  });
+   else if (selectedRange === "10-200$") {
+     return item.price >= 10 && item.price < 200;
+   } else if (selectedRange === "200-300$") {
+     return item.price >= 200 && item.price < 300;
+   } else if (selectedRange === "300$-") {
+     return item.price >= 300 }}
+ )
+  
 
   return (
     <>
@@ -87,7 +102,7 @@ function Mobile() {
           <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
             saved items 
           </h1>
-          <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+          <h1 onClick={nav1} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
             liked items 
           </h1>
           {showOptions && (
@@ -169,8 +184,8 @@ function Mobile() {
                   </li>
                 </ul>
                 <div className="flex justify-center text-center space-x-8 mt-3">
-                <button onClick={()=>toggleLike(index)} className="bg-blue-500 text-white w-20 h-9 rounded-md">{likes[index]?'liked':'like'}</button>
-                <button onClick={()=>toggleSave(index)} className="bg-blue-500 text-white  w-20 h-9 rounded-md">{saves[index]?'saved':'save'}</button>
+                <button onClick={()=>toggleLike(item._id)} className="bg-blue-500 text-white w-20 h-9 rounded-md"> {likes[item._id] ? "liked" : "like"}</button>
+                <button onClick={()=>toggleSave(item._id)} className="bg-blue-500 text-white  w-20 h-9 rounded-md"> {saves[item._id] ? "saved" : "save"}</button>
                      <button className="bg-green-500 text-white  w-28 h-9 rounded-md">Add to cart</button>
                 </div>
               </div>

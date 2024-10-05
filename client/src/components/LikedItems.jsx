@@ -1,39 +1,24 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 
 const LikedItems = () => {
   const [likedItems, setLikedItems] = useState([]);
-  const location = useLocation();
-  const { id } = location.state || {};
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchLikedItems = async () => {
       try {
-        console.log('Location state id:', id);
-        const response = await axios.get('http://localhost:3000/api/get-items');
-        console.log('Full API Response:', response);
-
-        if (response.data && response.data.items) {
-          const allItems = response.data.items;
-          console.log('Fetched items:', allItems);
-
-          // Filter items based on some criteria, e.g., user ID
-          const filteredItems = allItems.filter(item => item.userId === id);
-          setLikedItems(filteredItems);
-        } else {
-          console.error('Invalid API response structure:', response.data);
-          alert('Failed to fetch liked items. Invalid response structure.');
-        }
+        const response = await axios.get('http://localhost:3000/api/liked-items');
+        const items = response.data.likedItems;
+        console.log('Fetched liked items:', items);
+        setLikedItems(Array.isArray(items) ? items : []); // Ensure it's an array
       } catch (error) {
         console.error('Error fetching liked items:', error);
         alert('Failed to fetch liked items. Please try again later.');
       }
     };
-    fetchData();
-  }, [id]);
 
-  console.log('Liked items state:', likedItems);
+    fetchLikedItems();
+  }, []);
 
   if (!Array.isArray(likedItems) || likedItems.length === 0) {
     return <div>No liked items found.</div>;
@@ -41,7 +26,7 @@ const LikedItems = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {likedItems.map((item) => (
+      {likedItems?.map((item) => (
         <div key={item._id} className="bg-white p-4 rounded-md shadow-md">
           <ul className="space-y-2">
             <li>

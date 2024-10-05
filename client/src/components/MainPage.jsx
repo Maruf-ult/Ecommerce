@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate} from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const MainPage = () => {
   const [data, setData] = useState([]);
@@ -36,21 +35,30 @@ const MainPage = () => {
     setSelectedRange(event.target.value);
   };
 
- const Nav1 = ()=>{
-  navigate('/liked-items')
- }
+  const Nav1 = () => {
+    navigate('/liked-items');
+  };
+
+  const reloadPage = () => {
+    window.location.reload();
+  };
 
   const toggleOptions = () => {
     setShowOptions(!showOptions);
   };
 
-
-  const toggleLike = (id) => {
+  const toggleLike = async (id) => {
     setLikes((prevLikes) => ({
       ...prevLikes,
       [id]: !prevLikes[id],
     }));
-    navigate('/liked-items',{state:{id:id}});
+
+    try {
+      await axios.post("http://localhost:3000/api/create-like", { id });
+      console.log(`Item with id ${id} liked successfully`);
+    } catch (error) {
+      console.error('Error liking the item:', error);
+    }
   };
 
   const toggleSave = (id) => {
@@ -62,21 +70,22 @@ const MainPage = () => {
   };
 
   const filteredItems = data.filter((item) => {
-    if (selectedRange === "10-200") {
+     if (!selectedRange) {
+        return true; // Show all items if no range is selected
+     }
+    else if (selectedRange === "10-200$") {
       return item.price >= 10 && item.price < 200;
-    } else if (selectedRange === "200-300") {
+    } else if (selectedRange === "200-300$") {
       return item.price >= 200 && item.price < 300;
-    } else if (selectedRange === "400-500") {
-      return item.price >= 400 && item.price < 500;
-    }
-    return true;
-  });
-
+    } else if (selectedRange === "300$-") {
+      return item.price >= 300 }}
+  )
+    
   return (
     <>
       <div className="flex space-x-2">
         <div className="bg-red-200 w-64 h-screen flex flex-col justify-start text-start  rounded-md p-2">
-          <h1 className="text-blue-500 font-extrabold bg-slate-700 p-3 w-full cursor-pointer">
+          <h1 onClick={reloadPage} className="text-blue-500 font-extrabold bg-slate-700 p-3 w-full cursor-pointer">
             Dashboard
           </h1>
 
@@ -147,7 +156,7 @@ const MainPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredItems.map((item, index) => (
+            {filteredItems?.map((item, index) => (
               <div key={index} className="bg-white p-4 rounded-md shadow-md">
                 <ul className="space-y-2">
                   <li>
