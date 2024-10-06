@@ -52,7 +52,9 @@ export const PostlikeItem = async (req, res) => {
     const { id } = req.body;
 
     if (!id) {
-      return res.status(400).json({ success: false, msg: "Item ID is required" });
+      return res
+        .status(400)
+        .json({ success: false, msg: "Item ID is required" });
     }
 
     // Assuming the addItem model has a 'likes' field to keep count of likes
@@ -64,24 +66,88 @@ export const PostlikeItem = async (req, res) => {
     item.likes = item.likes ? item.likes + 1 : 1;
     await item.save();
 
-    return res.status(200).json({ success: true, msg: "Item liked successfully", item });
+    return res
+      .status(200)
+      .json({ success: true, msg: "Item liked successfully", item });
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ success: false, msg: `An internal error occurred: ${error}` });
+    return res
+      .status(400)
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
+
+export const PostSaveItem = async (req, res) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, msg: "Item ID is required" });
+    }
+
+    const item = await addItem.findById(id);
+
+    if (!id) {
+      return res.status(400).json({ success: false, msg: "item not found" });
+    }
+
+    item.saves = item.saves ? item.saves + 1 : 1;
+    await item.save();
+    return res
+      .status(200)
+      .json({ success: true, msg: "Item saved successfully", item});
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
+  }
+};
+
+
+export const getSavedItems = async(req,res)=>{
+  try {
+      const savedItems = await addItem.find({saves:{$gt:0}})
+      if(!savedItems||savedItems.length===0){
+        return res.status(404).json({success:false,msg:"No saved items found"})
+      }
+      return res.status(200).json({
+        success: true,
+        msg: "saved items retrieved successfully",
+        savedItems,
+      });
+
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
+  }
+}
+
+
+
 
 // Controller function to get liked items
 export const getLikedItems = async (req, res) => {
   try {
     const likedItems = await addItem.find({ likes: { $gt: 0 } });
     if (!likedItems || likedItems.length === 0) {
-      return res.status(404).json({ success: false, msg: "No liked items found" });
+      return res
+        .status(404)
+        .json({ success: false, msg: "No liked items found" });
     }
-    return res.status(200).json({ success: true, msg: "Liked items retrieved successfully", likedItems });
+    return res.status(200).json({
+      success: true,
+      msg: "Liked items retrieved successfully",
+      likedItems,
+    });
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ success: false, msg: `An internal error occurred: ${error}` });
+    return res
+      .status(400)
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
   }
 };
 

@@ -43,6 +43,9 @@ function Mobile() {
   const nav1=()=>{
     navigate('/liked-items')
   }
+  const nav2=()=>{
+    navigate('/saved-items')
+  }
 
   const handleRangeChange = (event) => {
     setSelectedRange(event.target.value);
@@ -67,12 +70,19 @@ function Mobile() {
 
   };
 
-  const toggleSave =(id) =>{
+  const toggleSave =async (id) =>{
     setSaves((prevSaves) =>({
       ...prevSaves,
       [id]:!prevSaves[id],
     }));
-    alert(id)
+    try {
+      await axios.post("http://localhost:3000/api/create-save",{id})
+      console.log(`Item with id ${id} saved successfully`);                     
+    } catch (error) {
+     console.error('Error liking the item:', error);
+       alert(error)
+    } 
+
   };
 
   const filteredItems = data.filter((item) => {
@@ -99,7 +109,7 @@ function Mobile() {
           <h1 onClick={toggleOptions} className="text-blue-500 font-extrabold bg-white p-3 mt-5 rounded-md cursor-pointer">
             Amount
           </h1>
-          <h1  className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+          <h1 onClick={nav2} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
             saved items 
           </h1>
           <h1 onClick={nav1} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">

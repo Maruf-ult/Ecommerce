@@ -30,6 +30,14 @@ const additem = new mongoose.Schema({
       likes: {
         type: Number,
         default: 0
+      },
+      saves:{
+        type:Number,
+        default:0
+      },
+      cart:{
+        type:Number,
+        default:0
       }
 
 })

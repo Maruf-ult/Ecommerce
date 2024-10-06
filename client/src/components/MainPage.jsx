@@ -31,6 +31,21 @@ const MainPage = () => {
     navigate("/Fashion");
   };
 
+  const handleNav2=()=>{
+    navigate("/Mobile")
+  }
+
+  const handleNav3=()=>{
+    navigate("/Books")
+  }
+  const handleNav4=()=>{
+    navigate("/Laptop")
+  }
+   
+   const Nav2=()=>{
+    navigate('/saved-items')
+   }
+
   const handleRangeChange = (event) => {
     setSelectedRange(event.target.value);
   };
@@ -61,12 +76,19 @@ const MainPage = () => {
     }
   };
 
-  const toggleSave = (id) => {
+  const toggleSave =async (id) => {
     setSaves((prevSaves) => ({
       ...prevSaves,
       [id]: !prevSaves[id],
     }));
-    alert(id);
+     
+    try {
+       await axios.post("http://localhost:3000/api/create-save",{id})
+       console.log(`Item with id ${id} saved successfully`);                     
+     } catch (error) {
+      console.error('Error liking the item:', error);
+        alert(error)
+     }
   };
 
   const filteredItems = data.filter((item) => {
@@ -95,7 +117,7 @@ const MainPage = () => {
           >
             Amount
           </h1>
-          <h1 className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+          <h1 onClick={Nav2} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
             saved items
           </h1>
           <h1 onClick={Nav1} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
@@ -144,13 +166,13 @@ const MainPage = () => {
             >
               Fashion
             </li>
-            <li className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <li onClick={handleNav4} className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
               Laptop
             </li>
-            <li className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <li onClick={handleNav2} className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
               Mobile
             </li>
-            <li className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <li onClick={handleNav3} className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
               Books
             </li>
           </div>
