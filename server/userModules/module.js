@@ -196,3 +196,55 @@ export const delteItem = async (req, res) => {
       .json({ success: false, msg: `an eternal error occured ${error}` });
   }
 };
+
+
+
+
+export const PostCartItem = async (req, res) => {
+  try {
+    const { id } = req.body;
+    if (!id) {
+      return res
+        .status(400)
+        .json({ success: false, msg: "Item ID is required" });
+    }
+
+    const item = await addItem.findById(id);
+
+    if (!id) {
+      return res.status(400).json({ success: false, msg: "item not found" });
+    }
+
+    item.cart = item.cart ? item.cart + 1 : 1;
+    await item.save();
+    return res
+      .status(200)
+      .json({ success: true, msg: "Item added successfully", item});
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
+  }
+};
+
+
+export const getCartItems = async(req,res)=>{
+  try {
+      const addedItems = await addItem.find({cart:{$gt:0}})
+      if(!addedItems||addedItems.length===0){
+        return res.status(404).json({success:false,msg:"No added items found"})
+      }
+      return res.status(200).json({
+        success: true,
+        msg: "added items retrieved successfully",
+        addedItems,
+      });
+
+  } catch (error) {
+    console.log(error);
+    return res
+      .status(400)
+      .json({ success: false, msg: `An internal error occurred: ${error}` });
+  }
+}

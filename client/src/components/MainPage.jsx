@@ -8,6 +8,7 @@ const MainPage = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [likes, setLikes] = useState({});
   const [saves, setSaves] = useState({});
+  const [carts, setCarts] = useState({});
 
   const navigate = useNavigate();
 
@@ -31,27 +32,31 @@ const MainPage = () => {
     navigate("/Fashion");
   };
 
-  const handleNav2=()=>{
-    navigate("/Mobile")
-  }
+  const handleNav2 = () => {
+    navigate("/Mobile");
+  };
 
-  const handleNav3=()=>{
-    navigate("/Books")
-  }
-  const handleNav4=()=>{
-    navigate("/Laptop")
-  }
-   
-   const Nav2=()=>{
-    navigate('/saved-items')
-   }
+  const handleNav3 = () => {
+    navigate("/Books");
+  };
+  const handleNav4 = () => {
+    navigate("/Laptop");
+  };
+
+  const Nav2 = () => {
+    navigate("/saved-items");
+  };
+
+  const Nav3 = () => {
+    navigate("/added-items");
+  };
 
   const handleRangeChange = (event) => {
     setSelectedRange(event.target.value);
   };
 
   const Nav1 = () => {
-    navigate('/liked-items');
+    navigate("/liked-items");
   };
 
   const reloadPage = () => {
@@ -72,42 +77,60 @@ const MainPage = () => {
       await axios.post("http://localhost:3000/api/create-like", { id });
       console.log(`Item with id ${id} liked successfully`);
     } catch (error) {
-      console.error('Error liking the item:', error);
+      console.error("Error liking the item:", error);
     }
   };
 
-  const toggleSave =async (id) => {
+  const toggleSave = async (id) => {
     setSaves((prevSaves) => ({
       ...prevSaves,
       [id]: !prevSaves[id],
     }));
-     
+
     try {
-       await axios.post("http://localhost:3000/api/create-save",{id})
-       console.log(`Item with id ${id} saved successfully`);                     
-     } catch (error) {
-      console.error('Error liking the item:', error);
-        alert(error)
-     }
+      await axios.post("http://localhost:3000/api/create-save", { id });
+      console.log(`Item with id ${id} saved successfully`);
+    } catch (error) {
+      console.error("Error liking the item:", error);
+      alert(error);
+    }
+  };
+
+  const toggleCart = async (id) => {
+    setCarts((prevCarts) => ({
+      ...prevCarts,
+      [id]: !prevCarts[id],
+    }));
+
+    try {
+      await axios.post("http://localhost:3000/api/create-cart", { id });
+      console.log(`Item with id ${id} added successfully`);
+    } catch (error) {
+      console.error("Error liking the item:", error);
+      alert(error);
+    }
   };
 
   const filteredItems = data.filter((item) => {
-     if (!selectedRange) {
-        return true; // Show all items if no range is selected
-     }
-    else if (selectedRange === "10-200$") {
+    if (!selectedRange) {
+      return true; // Show all items if no range is selected
+    } else if (selectedRange === "10-200$") {
       return item.price >= 10 && item.price < 200;
     } else if (selectedRange === "200-300$") {
       return item.price >= 200 && item.price < 300;
     } else if (selectedRange === "300$-") {
-      return item.price >= 300 }}
-  )
-    
+      return item.price >= 300;
+    }
+  });
+
   return (
     <>
       <div className="flex space-x-2">
         <div className="bg-red-200 w-64 h-screen flex flex-col justify-start text-start  rounded-md p-2">
-          <h1 onClick={reloadPage} className="text-blue-500 font-extrabold bg-slate-700 p-3 w-full cursor-pointer">
+          <h1
+            onClick={reloadPage}
+            className="text-blue-500 font-extrabold bg-slate-700 p-3 w-full cursor-pointer"
+          >
             Dashboard
           </h1>
 
@@ -117,11 +140,23 @@ const MainPage = () => {
           >
             Amount
           </h1>
-          <h1 onClick={Nav2} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+          <h1
+            onClick={Nav2}
+            className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer"
+          >
             saved items
           </h1>
-          <h1 onClick={Nav1} className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer">
+          <h1
+            onClick={Nav1}
+            className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer"
+          >
             liked items
+          </h1>
+          <h1
+            onClick={Nav3}
+            className="text-blue-500 font-extrabold bg-white p-3 mt-6  cursor-pointer"
+          >
+            Added items
           </h1>
           {showOptions && (
             <div className="bg-white mt-1 space-y-1 ">
@@ -166,13 +201,22 @@ const MainPage = () => {
             >
               Fashion
             </li>
-            <li onClick={handleNav4} className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <li
+              onClick={handleNav4}
+              className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer"
+            >
               Laptop
             </li>
-            <li onClick={handleNav2} className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <li
+              onClick={handleNav2}
+              className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer"
+            >
               Mobile
             </li>
-            <li onClick={handleNav3} className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer">
+            <li
+              onClick={handleNav3}
+              className="hover:text-blue-500 hover:scale-105 transition-transform duration-500 cursor-pointer"
+            >
               Books
             </li>
           </div>
@@ -223,8 +267,12 @@ const MainPage = () => {
                     >
                       {saves[item._id] ? "saved" : "save"}
                     </button>
-                    <button className="bg-green-500 text-white  w-28 h-9 rounded-md">
-                      Add to cart
+                    <button
+                      onClick={() => toggleCart(item._id)}
+                      className="bg-green-500 text-white  w-28 h-9 rounded-md"
+                    >
+                      {carts[item._id]?"Added":"Add to cart"}
+                      
                     </button>
                   </div>
                 </ul>
@@ -235,6 +283,6 @@ const MainPage = () => {
       </div>
     </>
   );
-}
+};
 
 export default MainPage;
