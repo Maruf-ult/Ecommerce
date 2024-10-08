@@ -89,12 +89,12 @@ function Mobile() {
     if (!selectedRange) {
        return true; 
     }
-   else if (selectedRange === "10-200$") {
-     return item.price >= 10 && item.price < 200;
-   } else if (selectedRange === "200-300$") {
-     return item.price >= 200 && item.price < 300;
-   } else if (selectedRange === "300$-") {
-     return item.price >= 300 }}
+   else if (selectedRange === "10-200") {
+     return item.offer_price >= 10 && item.offer_price < 200;
+   } else if (selectedRange === "200-300") {
+     return item.offer_price >= 200 && item.offer_price < 300;
+   } else if (selectedRange === "300-100000000") {
+    return item.offer_price >= 300 && item.offer_price<1000000000; }}
  )
   
 
@@ -135,10 +135,10 @@ function Mobile() {
     </div>
     <div
       className="flex justify-center bg-gray-100 hover:bg-gray-200 cursor-pointer"
-      onClick={() => handleRangeChange({ target: { value: '400-500' } })}
+      onClick={() => handleRangeChange({ target: { value: '300-100000000' } })}
     >
       <h1 className="text-blue-500 font-extrabold p-2 rounded-md">
-        400-500$
+      300-100000000$
       </h1>
     </div>
   </div>
@@ -176,10 +176,10 @@ function Mobile() {
                     <span className="font-bold">Offer Price: </span>
                     {item.offer_price}$
                   </li>
-                  <li>
+                  {/* <li>
                     <span className="font-bold">Category: </span>
                     {item.category}
-                  </li>
+                  </li> */}
                   <li>
                     <span className="font-bold">Brand: </span>
                     {item.brand}

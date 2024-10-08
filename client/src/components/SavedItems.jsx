@@ -25,40 +25,44 @@ const SavedItems = () => {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {savedItems?.map((item) => (
-        <div key={item._id} className="bg-white p-4 rounded-md shadow-md">
-          <ul className="space-y-2">
-            <li>
-              <span className="font-bold">Title: </span>
-              {item.title}
-            </li>
-            <li>
-              <span className="font-bold">Price: </span>
-              {item.price}$
-            </li>
-            <li>
-              <span className="font-bold">Offer Price: </span>
-              {item.offer_price}$
-            </li>
-            <li>
-              <span className="font-bold">Category: </span>
-              {item.category}
-            </li>
-            <li>
-              <span className="font-bold">Brand: </span>
-              {item.brand}
-            </li>
-            <li>
-              <img
-                src={`http://localhost:3000/${item.image?.split("\\").pop()}`}
-                alt={item.title}
-                className="w-full h-48 object-cover rounded-md"
-              />
-            </li>
-          </ul>
-        </div>
-      ))}
+    <div className="min-h-screen bg-slate-400">
+       <h2 className="text-xl font-bold mb-4 text-center bg-sky-400  p-4 border-black rounded-md ">
+          Saved Items
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-10 pr-10 pl-10">
+     
+        {savedItems?.map((item) => (
+          <div key={item._id} className="bg-white p-4 rounded-md shadow-md flex">
+            <img
+              src={`http://localhost:3000/${item.image?.split("\\").pop()}`}
+              alt={item.title}
+              className="w-48 h-56 object-cover rounded-md"
+            />
+            <ul className="space-y-2 ml-4">
+              <li>
+                <span className="font-bold">Title: </span>
+                {item.title}
+              </li>
+              <li>
+                <span className="font-bold">Price: </span>
+                {item.price}$
+              </li>
+              <li>
+                <span className="font-bold">Offer Price: </span>
+                {item.offer_price}$
+              </li>
+              <li>
+                <span className="font-bold">Category: </span>
+                {item.category}
+              </li>
+              <li>
+                <span className="font-bold">Brand: </span>
+                {item.brand}
+              </li>
+            </ul>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

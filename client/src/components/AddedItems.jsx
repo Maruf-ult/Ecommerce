@@ -30,12 +30,20 @@ const AddedItems = () => {
   }
 
   return (
-    <div>
-      <h2 className="text-xl font-bold mb-4">Total Offer Price: ${totalOfferPrice}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="min-h-screen bg-zinc-400"> 
+    
+      <h2 className="text-xl font-bold mb-4 text-center bg-blue-500 mr-96 ml-96 p-4">
+        Total Price: ${totalOfferPrice}
+      </h2>
+      <div className="flex flex-col space-y-4">
         {addedItems?.map((item) => (
-          <div key={item._id} className="bg-white p-4 rounded-md shadow-md">
-            <ul className="space-y-2">
+          <div key={item._id} className="bg-gray-200 p-4 rounded-md shadow-md flex">
+            <img
+              src={`http://localhost:3000/${item.image?.split("\\").pop()}`}
+              alt={item.title}
+              className="w-48 h-48 object-cover rounded-md mr-4"
+            />
+            <ul className="flex flex-col justify-between ml-10">
               <li>
                 <span className="font-bold">Title: </span>
                 {item.title}
@@ -55,13 +63,6 @@ const AddedItems = () => {
               <li>
                 <span className="font-bold">Brand: </span>
                 {item.brand}
-              </li>
-              <li>
-                <img
-                  src={`http://localhost:3000/${item.image?.split("\\").pop()}`}
-                  alt={item.title}
-                  className="w-full h-48 object-cover rounded-md"
-                />
               </li>
             </ul>
           </div>
