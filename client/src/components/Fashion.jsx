@@ -196,7 +196,7 @@ function Mobile() {
                 <div className="flex justify-center text-center space-x-8 mt-3">
                 <button onClick={()=>toggleLike(item._id)} className="bg-blue-500 text-white w-20 h-9 rounded-md"> {likes[item._id] ? "liked" : "like"}</button>
                 <button onClick={()=>toggleSave(item._id)} className="bg-blue-500 text-white  w-20 h-9 rounded-md"> {saves[item._id] ? "saved" : "save"}</button>
-                     <button className="bg-green-500 text-white  w-28 h-9 rounded-md">Add to cart</button>
+                     <button className="bg-green-500 text-white  w-36 h-9 rounded-md">Add to cart</button>
                 </div>
               </div>
             ))}

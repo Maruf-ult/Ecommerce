@@ -269,7 +269,7 @@ const MainPage = () => {
                     </button>
                     <button
                       onClick={() => toggleCart(item._id)}
-                      className="bg-green-500 text-white  w-28 h-9 rounded-md"
+                      className="bg-green-500 text-white  w-36 h-9 rounded-md"
                     >
                       {carts[item._id]?"Added":"Add to cart"}
                       

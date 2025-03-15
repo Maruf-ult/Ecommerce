@@ -14,6 +14,7 @@ function SignGoogle() {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth,provider).then(async (result)=>{
       console.log(result);
+      console.log('Firebase UID:', result.user.uid); 
       if(result.user){
            toast.success('Logged in successfully')
            navigate('/Home')

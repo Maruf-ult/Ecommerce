@@ -34,7 +34,7 @@ function Login() {
   return (
     <>
       <div className="h-screen w-screen bg-cyan-900 relative flex">
-        <div className="flex-col justify-start space-y-5 mt-20 ml-24">
+        <div className="flex-col justify-start space-y-5 mt-10 ml-24">
           <h1 className="font-extrabold text-8xl">
            <span className="text-slate-300">HI</span> <span className="text-sky-500">THERE</span>
           </h1>
@@ -42,9 +42,9 @@ function Login() {
           <h1 className="font-extrabold text-8xl text-sky-500">Ecommerce</h1>
         </div>
 
-        <div className="flex items-center justify-center ml-40 mb-16">
-          <div className="flex flex-col bg-slate-300 h-96 w-96 justify-center items-center text-center space-y-5 pb-6 rounded-lg">
-            <h1 className="font-bold text-3xl">Sign in</h1>
+        <div className="flex items-center justify-center ml-32 mb-16 mr-20  ">
+          <div className="flex flex-col bg-slate-300 h-[450px] w-96 justify-center items-center text-center space-y-5 pb-6 rounded-lg mt-10">
+            <h1 className="font-bold text-3xl mt-4">Sign in</h1>
             <input
               type="email"
               placeholder="email"

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { auth,db } from "./firebase";
 import { setDoc,doc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
-
+import SignGoogle from "./SignGoogle";
 function Home() {
   
   const [name,setName] = useState("")
@@ -39,16 +39,16 @@ function Home() {
   return (
     <>
       <div className="h-screen w-screen bg-cyan-900 relative flex">
-        <div className="flex-col justify-start space-y-5 mt-20 ml-24">
+        <div className="flex-col justify-start space-y-5 mt-14 ml-24">
           <h1 className="font-extrabold text-8xl">
            <span className="text-slate-300">HI</span>  <span className="text-sky-500">THERE</span>
           </h1>
-          <h1 className="font-extrabold text-8xl text-slate-300">WELCOME TO</h1>
+          <h1 className="font-extrabold text-8xl text-slate-300">WELCOME TO </h1>
           <h1 className="font-extrabold text-8xl text-sky-500">Ecommerce</h1>
         </div>
 
-        <div className="flex  items-center justify-center ml-40 mb-16 ">
-          <div className="flex flex-col bg-slate-300 h-96 w-96 justify-center items-center text-center space-y-6 rounded-lg">
+        <div className="flex  items-center justify-center ml-40 mr-10 mt-10 mb-16  ">
+          <div className="flex flex-col bg-slate-300 h-[600] w-96 justify-center items-center text-center space-y-6 rounded-lg">
             <h1 className="font-bold  text-3xl ">Sign up</h1>
             <input
               type="text"
@@ -72,12 +72,13 @@ function Home() {
               className="p-3 w-64 rounded-md"
             />
 
-            <div className="flex space-x-9">
-              <button onClick={handleSubmit} className="bg-sky-500 py-2 w-64 rounded-md  text-white ">
+            <div className="flex-col space-x-9 mr-8 ">
+              <button onClick={handleSubmit} className="bg-sky-500 py-2 w-64 ml-8 rounded-md  text-white ">
                 Create account
               </button>
+              < SignGoogle/>
             </div>
-            <p className="pl-24 font-light">
+            <p className="pl-6 pb-6 font-light">
               Already Registered{" "}
               <button
                 onClick={handleNavigation}
@@ -85,8 +86,11 @@ function Home() {
               >
                 Login
               </button>{" "}
+            
             </p>
+           
           </div>
+          
         </div>
       </div>
       <Toaster></Toaster>
