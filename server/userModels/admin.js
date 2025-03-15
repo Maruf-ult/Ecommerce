@@ -1,46 +1,44 @@
 import mongoose from "mongoose";
 
-const additem = new mongoose.Schema({
-      title:{
-          type:String,
-          required: [true, 'Title is required'],
-          minlength: [3, 'Name must be at least 3 characters long']
-      },
-      price:{
-          type:Number,
-          required:[true,'Price is required'],
-        
-      },
-      offer_price:{
-            type:Number,
-            required:[true,'Offer Price is required'],
-      },
-      category:{
-           type:String,
-           required: [true, 'Category is required'],
-      },
-      brand:{
-        type:String,
-        required:[true,'brand is required']
-      },
-      image:{
-          type:String,
-          required: [true, 'Image is required'],
-      },
-      likes: {
-        type: Number,
-        default: 0
-      },
-      saves:{
-        type:Number,
-        default:0
-      },
-      cart:{
-        type:Number,
-        default:0
-      }
+const additemSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, 'Title is required'],
+    minlength: [3, 'Title must be at least 3 characters long']
+  },
+  price: {
+    type: Number,
+    required: [true, 'Price is required'],
+  },
+  offer_price: {
+    type: Number,
+    required: [true, 'Offer Price is required'],
+  },
+  category: {
+    type: String,
+    required: [true, 'Category is required'],
+  },
+  brand: {
+    type: String,
+    required: [true, 'Brand is required']
+  },
+  image: {
+    type: String,
+    required: [true, 'Image is required'],
+  },
+  likes: {
+    type: [String], // Array of user IDs
+    default: [],
+  },
+  saves: {
+    type: [String], // Array of user IDs
+    default: [],
+  },
+  cart: {
+    type: [String],  // Array of user IDs who added the item to their cart
+    default: [],
+  }
+});
 
-})
-
-const addItem = mongoose.model('additem',additem)
+const addItem = mongoose.model('additem', additemSchema);
 export default addItem;
