@@ -27,15 +27,15 @@ const additemSchema = new mongoose.Schema({
     required: [true, 'Image is required'],
   },
   likes: {
-    type: [String], // Array of user IDs
+    type: [String], 
     default: [],
   },
   saves: {
-    type: [String], // Array of user IDs
+    type: [String], 
     default: [],
   },
   cart: {
-    type: [String],  // Array of user IDs who added the item to their cart
+    type: [String],  
     default: [],
   }
 });
