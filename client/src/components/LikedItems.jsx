@@ -7,7 +7,7 @@ const LikedItems = () => {
   useEffect(() => {
     const fetchLikedItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/liked-items');
+        const response = await axios.get('https://ecommerce-rc1u.onrender.com/api/liked-items');
         const items = response.data.likedItems;
         console.log('Fetched liked items:', items);
         setLikedItems(Array.isArray(items) ? items : []); // Ensure it's an array
@@ -33,7 +33,7 @@ const LikedItems = () => {
         {likedItems?.map((item) => (
           <div key={item._id} className="bg-white p-4 rounded-md shadow-md flex">
             <img
-              src={`http://localhost:3000/${item.image?.split("\\").pop()}`}
+              src={`https://ecommerce-rc1u.onrender.com/${item.image?.split("\\").pop()}`}
               alt={item.title}
               className="w-48 h-52 object-cover rounded-md"
             />

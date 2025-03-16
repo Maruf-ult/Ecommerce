@@ -8,7 +8,7 @@ const AddedItems = () => {
   useEffect(() => {
     const fetchAddedItems = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/added-items');
+        const response = await axios.get('https://ecommerce-rc1u.onrender.com/api/added-items');
         const items = response.data.addedItems;
         console.log('Fetched saved items:', items);
         setAddedItems(Array.isArray(items) ? items : []);
@@ -39,7 +39,7 @@ const AddedItems = () => {
         {addedItems?.map((item) => (
           <div key={item._id} className="bg-gray-200 p-4 rounded-md shadow-md flex">
             <img
-              src={`http://localhost:3000/${item.image?.split("\\").pop()}`}
+              src={`https://ecommerce-rc1u.onrender.com/${item.image?.split("\\").pop()}`}
               alt={item.title}
               className="w-48 h-48 object-cover rounded-md mr-4"
             />

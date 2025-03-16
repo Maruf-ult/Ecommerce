@@ -15,7 +15,7 @@ const MainPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const items = await axios.get("http://localhost:3000/api/get-item");
+        const items = await axios.get("https://ecommerce-rc1u.onrender.com/api/get-item");
         const val = items.data.items;
         console.log(val);
         setData(val);
@@ -74,7 +74,7 @@ const MainPage = () => {
     }));
 
     try {
-      await axios.post("http://localhost:3000/api/create-like", { id });
+      await axios.post("https://ecommerce-rc1u.onrender.com/api/create-like", { id });
       console.log(`Item with id ${id} liked successfully`);
     } catch (error) {
       console.error("Error liking the item:", error);
@@ -88,7 +88,7 @@ const MainPage = () => {
     }));
 
     try {
-      await axios.post("http://localhost:3000/api/create-save", { id });
+      await axios.post("https://ecommerce-rc1u.onrender.com/api/create-save", { id });
       console.log(`Item with id ${id} saved successfully`);
     } catch (error) {
       console.error("Error liking the item:", error);
@@ -103,7 +103,7 @@ const MainPage = () => {
     }));
 
     try {
-      await axios.post("http://localhost:3000/api/create-cart", { id });
+      await axios.post("https://ecommerce-rc1u.onrender.com/api/create-cart", { id });
       console.log(`Item with id ${id} added successfully`);
     } catch (error) {
       console.error("Error liking the item:", error);
@@ -248,7 +248,7 @@ const MainPage = () => {
                   <li>
                     <img
                       src={
-                        `http://localhost:3000/` + item.image?.split("\\").pop()
+                        `https://ecommerce-rc1u.onrender.com/` + item.image?.split("\\").pop()
                       }
                       alt={item.image}
                       className="w-full h-48 object-cover rounded-md"
